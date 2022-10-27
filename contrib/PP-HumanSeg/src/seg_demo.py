@@ -100,6 +100,19 @@ def seg_image(args):
     out_img = predictor.run(img, bg_img)
     cv2.imwrite(args.save_dir, out_img)
 
+def my_seg_image(args):
+    assert os.path.exists(args.img_path), \
+        "The --img_path is not existed: {}.".format(args.img_path)
+
+    logger.info("Input: image")
+    logger.info("Create predictor...")
+    predictor = Predictor(args)
+
+    logger.info("Start predicting...")
+    img = cv2.imread(args.img_path)
+    bg_img = get_bg_img(args.bg_img_path, img.shape)
+    out_img = predictor.run(img, bg_img)
+    cv2.imwrite(args.save_dir, out_img)
 
 def seg_video(args):
     assert os.path.exists(args.video_path), \

@@ -24,6 +24,8 @@ import paddle
 from paddle.inference import create_predictor, PrecisionType
 from paddle.inference import Config as PredictConfig
 
+import matplotlib.pyplot as plt
+
 __dir__ = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.abspath(os.path.join(__dir__, '../../../')))
 
@@ -224,5 +226,6 @@ class Predictor:
         if bg.ndim == 2:
             bg = bg[..., np.newaxis]
 
+        # plt.imshow(alpha, cmap='gray')
         out = alpha * origin_img # + (1 - alpha) * bg).astype(np.uint8)
-        return out
+        return out, alpha
